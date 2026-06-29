@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Baba Rafi Academy - Service Excellence & Hospitality</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #certificate-modal, #certificate-modal * {
+        visibility: visible;
+      }
+      #certificate-modal {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        box-shadow: none;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 flex flex-col min-h-screen">
+
+  <!-- TOP BAR & BRANDING -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 bg-red-600 rounded-xl flex items-center justify-center text-white font-extrabold text-xl shadow-lg shadow-red-200">
+          R
+        </div>
+        <div>
+          <span class="text-xs font-bold tracking-widest text-red-600 uppercase block">Academy Portal</span>
+          <h1 class="text-lg font-extrabold text-slate-900 leading-none">Baba Rafi Academy</h1>
+        </div>
+      </div>
+      <div class="flex items-center space-x-3">
+        <span id="gas-status-badge" class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200">
+          <span class="w-1.5 h-1.5 bg-amber-500 rounded-full mr-1.5 animate-pulse"></span>
+          Belum Terhubung Sheet
+        </span>
+        <button onclick="switchTab('settings')" class="p-2 hover:bg-slate-100 rounded-lg text-slate-600 transition-colors" title="Pengaturan API & Database">
+          <i class="fa-solid fa-gear text-lg"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- APP CONTENT GRID -->
+  <div class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col lg:flex-row gap-8">
+    
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="lg:w-64 shrink-0 flex flex-row lg:flex-col gap-2 overflow-x-auto lg:overflow-visible pb-3 lg:pb-0 border-b lg:border-b-0 lg:border-r border-slate-200">
+      <button onclick="switchTab('home')" id="btn-tab-home" class="sidebar-btn flex items-center space-x-3 w-full px-4 py-3 rounded-xl text-sm font-semibold transition-all bg-red-600 text-white shadow-md shadow-red-100">
+        <i class="fa-solid fa-house w-5 text-center"></i>
+        <span>Beranda</span>
+      </button>
+      
+      <button onclick="switchTab('materi')" id="btn-tab-materi" class="sidebar-btn flex items-center space-x-3 w-full px-4 py-3 rounded-xl text-sm font-semibold transition-all text-slate-600 hover:bg-slate-100 hover:text-slate-900">
+        <i class="fa-solid fa-book-open w-5 text-center"></i>
+        <span>Materi Excellence</span>
+      </button>
+      
+      <button onclick="switchTab('chat')" id="btn-tab-chat" class="sidebar-btn flex items-center space-x-3 w-full px-4 py-3 rounded-xl text-sm font-semibold transition-all text-slate-600 hover:bg-slate-100 hover:text-slate-900">
+        <i class="fa-solid fa-comments w-5 text-center"></i>
+        <span>Tanya Coach AI</span>
+      </button>
+      
+      <button onclick="switchTab('roleplay')" id="btn-tab-roleplay" class="sidebar-btn flex items-center space-x-3 w-full px-4 py-3 rounded-xl text-sm font-semibold transition-all text-slate-600 hover:bg-slate-100 hover:text-slate-900">
+        <i class="fa-solid fa-chalkboard-user w-5 text-center"></i>
+        <span>Simulasi Roleplay AI</span>
+      </button>
+      
+      <button onclick="switchTab('quiz')" id="btn-tab-quiz" class="sidebar-btn flex items-center space-x-3 w-full px-4 py-3 rounded-xl text-sm font-semibold transition-all text-slate-600 hover:bg-slate-100 hover:text-slate-900">
+        <i class="fa-solid fa-trophy w-5 text-center"></i>
+        <span>Kuis & Sertifikat</span>
+      </button>
+
+      <button onclick="switchTab('settings')" id="btn-tab-settings" class="sidebar-btn flex items-center space-x-3 w-full px-4 py-3 rounded-xl text-sm font-semibold transition-all text-slate-600 hover:bg-slate-100 hover:text-slate-900">
+        <i class="fa-solid fa-sliders w-5 text-center"></i>
+        <span>Pengaturan Integrasi</span>
+      </button>
+    </aside>
+
+    <!-- MAIN VIEW AREA -->
+    <main class="flex-grow bg-white rounded-2xl border border-slate-150 p-6 sm:p-8 min-h-[500px] flex flex-col shadow-sm">
+      
+      <!-- ================= TAB: HOME ================= -->
+      <section id="tab-home" class="tab-view space-y-6">
+        <div class="bg-gradient-to-br from-red-600 to-amber-500 rounded-2xl p-6 sm:p-8 text-white relative overflow-hidden shadow-xl shadow-red-500/15">
+          <div class="relative z-10 max-w-xl">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-white/20 text-white mb-4 uppercase tracking-wider backdrop-blur-sm">
+              Level Up Your Skill!
+            </span>
+            <h2 class="text-3xl font-extrabold tracking-tight mb-2">Menguasai Service Excellence & Hospitality</h2>
+            <p class="text-white/90 text-sm sm:text-base leading-relaxed mb-6">
+              Selamat datang di portal pelatihan khusus untuk Outlet Crew, Supervisor, dan Mitra Kebab Turki Baba Rafi. Belajarlah berinteraksi hangat dengan pelanggan, menangani keluhan, dan jadilah pahlawan pelayanan!
+            </p>
+            <div class="flex flex-wrap gap-3">
+              <button onclick="switchTab('materi')" class="bg-white text-red-600 font-bold px-5 py-2.5 rounded-xl text-sm shadow-md hover:bg-slate-50 transition-all flex items-center space-x-2">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>Mulai Belajar</span>
+              </button>
+              <button onclick="switchTab('roleplay')" class="bg-red-700/30 border border-white/30 text-white font-bold px-5 py-2.5 rounded-xl text-sm hover:bg-red-700/50 transition-all flex items-center space-x-2">
+                <i class="fa-solid fa-play"></i>
+                <span>Coba Roleplay AI</span>
+              </button>
+            </div>
+          </div>
+          <!-- Decorative SVGs -->
+          <div class="absolute -right-16 -bottom-16 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+          <div class="absolute right-8 top-8 opacity-10 text-9xl">
+            <i class="fa-solid fa-burger"></i>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
+          <div class="border border-slate-100 bg-slate-50/50 rounded-xl p-5 hover:border-red-200 transition-all">
+            <div class="w-12 h-12 rounded-xl bg-red-100 text-red-600 flex items-center justify-center text-xl mb-4">
+              <i class="fa-solid fa-star"></i>
+            </div>
+            <h3 class="font-bold text-slate-900 mb-1">Kenapa Service Excellence?</h3>
+            <p class="text-xs text-slate-500 leading-relaxed">
+              Kebab yang lezat akan terasa berkali-kali lipat lebih nikmat jika disajikan dengan senyum tulus, perhatian, dan kesopanan yang profesional.
+            </p>
+          </div>
+          <div class="border border-slate-100 bg-slate-50/50 rounded-xl p-5 hover:border-yellow-300 transition-all">
+            <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center text-xl mb-4">
+              <i class="fa-solid fa-headset"></i>
+            </div>
+            <h3 class="font-bold text-slate-900 mb-1">Tanya Coach AI 24/7</h3>
+            <p class="text-xs text-slate-500 leading-relaxed">
+              Dapatkan bimbingan instan. Ajukan pertanyaan seputar skenario tersulit pelanggan, tips percaya diri, hingga kiat upselling.
+            </p>
+          </div>
+          <div class="border border-slate-100 bg-slate-50/50 rounded-xl p-5 hover:border-emerald-200 transition-all">
+            <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl mb-4">
+              <i class="fa-solid fa-award"></i>
+            </div>
+            <h3 class="font-bold text-slate-900 mb-1">Raih Sertifikat Resmi</h3>
+            <p class="text-xs text-slate-500 leading-relaxed">
+              Selesaikan materi pembelajaran, lakukan kuis evaluasi, raih nilai minimal 80 dan dapatkan sertifikat tanda kelulusan Anda!
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB: MATERI ================= -->
+      <section id="tab-materi" class="tab-view hidden space-y-6">
+        <div class="border-b border-slate-150 pb-4">
+          <h2 class="text-2xl font-black text-slate-900">Kurikulum Hospitality Baba Rafi</h2>
+          <p class="text-sm text-slate-500">Pelajari pondasi dasar standar pelayanan premium Baba Rafi.</p>
+        </div>
+
+        <div class="space-y-4">
+          <!-- Modul 1 -->
+          <div class="border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+            <button onclick="toggleAccordion('materi-1')" class="w-full px-6 py-4 bg-slate-50 flex items-center justify-between text-left font-bold text-slate-800 hover:bg-slate-100 transition-colors">
+              <div class="flex items-center space-x-3">
+                <span class="w-7 h-7 rounded-full bg-red-600 text-white flex items-center justify-center text-xs font-black">1</span>
+                <span>Budaya 3S+1A (Senyum, Sapa, Sopan & Antusias)</span>
+              </div>
+              <i id="icon-materi-1" class="fa-solid fa-chevron-down transition-transform duration-300"></i>
+            </button>
+            <div id="body-materi-1" class="hidden px-6 py-5 border-t border-slate-200 text-sm space-y-3 leading-relaxed text-slate-600">
+              <p class="font-semibold text-slate-800 text-base">Dasar Penampilan dan Sambutan Pertama</p>
+              <p>Pelayanan yang mengesankan dimulai bahkan sebelum pelanggan memesan. Saat pelanggan mendekati outlet Baba Rafi Anda:</p>
+              <ul class="list-disc pl-5 space-y-2">
+                <li><strong>Senyum:</strong> Tunjukkan ekspresi wajah yang ceria dan ramah secara tulus (senyum ikhlas dari mata, bukan terpaksa).</li>
+                <li><strong>Sapa:</strong> Sambut hangat pelanggan. Contoh: <em>"Selamat pagi/siang/malam kak! Selamat datang di Kebab Turki Baba Rafi, mau pesan Kebab varian apa hari ini?"</em></li>
+                <li><strong>Sopan:</strong> Selalu gunakan bahasa tubuh yang sopan, condongkan badan sedikit ke depan sebagai simbol kesiapan membantu, dengarkan dengan penuh perhatian.</li>
+                <li><strong>Antusias:</strong> Jawab setiap pesanan dengan energi positif, bersemangat untuk menyajikan kebab terbaik untuk mereka.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Modul 2 -->
+          <div class="border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+            <button onclick="toggleAccordion('materi-2')" class="w-full px-6 py-4 bg-slate-50 flex items-center justify-between text-left font-bold text-slate-800 hover:bg-slate-100 transition-colors">
+              <div class="flex items-center space-x-3">
+                <span class="w-7 h-7 rounded-full bg-red-600 text-white flex items-center justify-center text-xs font-black">2</span>
+                <span>Penanganan Keluhan (Complaint Handling) - Metode LAST</span>
+              </div>
+              <i id="icon-materi-2" class="fa-solid fa-chevron-down transition-transform duration-300"></i>
+            </button>
+            <div id="body-materi-2" class="hidden px-6 py-5 border-t border-slate-200 text-sm space-y-3 leading-relaxed text-slate-600">
+              <p class="font-semibold text-slate-800 text-base">Metode LAST untuk Mengubah Kritik Menjadi Loyalitas</p>
+              <p>Keluhan pelanggan adalah peluang emas untuk membuktikan bahwa kita peduli. Gunakan tahapan <strong>L.A.S.T</strong>:</p>
+              <div class="grid grid-cols-1 md:grid-cols-4 gap-4 py-2">
+                <div class="bg-red-50 p-3 rounded-lg border-l-4 border-red-500">
+                  <strong class="text-red-700 block mb-1">L - Listen (Dengar)</strong>
+                  Dengarkan keluhan sepenuhnya tanpa memotong kalimat mereka. Tatap mata dengan empati.
+                </div>
+                <div class="bg-amber-50 p-3 rounded-lg border-l-4 border-amber-500">
+                  <strong class="text-amber-800 block mb-1">A - Apologize (Maaf)</strong>
+                  Minta maaf dengan tulus atas ketidaknyamanan yang mereka alami, sekalipun kesalahan bukan pada diri Anda langsung.
+                </div>
+                <div class="bg-blue-50 p-3 rounded-lg border-l-4 border-blue-500">
+                  <strong class="text-blue-700 block mb-1">S - Solve (Solusi)</strong>
+                  Berikan solusi konkret secara cepat (misal mengganti kebab yang salah dengan yang baru secepatnya).
+                </div>
+                <div class="bg-emerald-50 p-3 rounded-lg border-l-4 border-emerald-500">
+                  <strong class="text-emerald-700 block mb-1">T - Thank (Terima Kasih)</strong>
+                  Ucapkan terima kasih karena telah memberi masukan agar pelayanan outlet menjadi lebih baik.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Modul 3 -->
+          <div class="border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+            <button onclick="toggleAccordion('materi-3')" class="w-full px-6 py-4 bg-slate-50 flex items-center justify-between text-left font-bold text-slate-800 hover:bg-slate-100 transition-colors">
+              <div class="flex items-center space-x-3">
+                <span class="w-7 h-7 rounded-full bg-red-600 text-white flex items-center justify-center text-xs font-black">3</span>
+                <span>Teknik Suggestive Selling & Upselling Ramah</span>
+              </div>
+              <i id="icon-materi-3" class="fa-solid fa-chevron-down transition-transform duration-300"></i>
+            </button>
+            <div id="body-materi-3" class="hidden px-6 py-5 border-t border-slate-200 text-sm space-y-3 leading-relaxed text-slate-600">
+              <p class="font-semibold text-slate-800 text-base">Meningkatkan Transaksi Melalui Hospitality</p>
+              <p>Upselling bukanlah sekadar memaksa orang membeli lebih banyak, tapi menawarkan nilai tambah demi kepuasan pengalaman bersantap mereka.</p>
+              <ul class="list-disc pl-5 space-y-2">
+                <li><strong>Gunakan Pilihan Alternatif:</strong> Daripada bertanya <em>"Mau tambah keju?"</em>, lebih efektif jika menawarkan: <em>"Untuk kebabnya, mau ditambahkan ekstra keju cheddar atau ekstra daging biar rasanya lebih mantap, kak?"</em></li>
+                <li><strong>Saran Paket Lengkap:</strong> Tawarkan minuman pendamping atau menu pendamping secara hangat. <em>"Wah kebabnya sudah ukuran besar, paling segar jika disandingkan dengan Es Lemon Tea dingin kami untuk melepas dahaga, kak. Mau langsung dibuatkan paket?"</em></li>
+                <li><strong>Tekankan Nilai Keuntungan:</strong> Tunjukkan bahwa penambahan sedikit harga membawa kepuasan yang berkali lipat.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-slate-50 rounded-xl p-5 border border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div>
+            <h4 class="font-bold text-slate-900">Sudah Selesai Memahami Seluruh Materi?</h4>
+            <p class="text-xs text-slate-500">Uji langsung pemahaman Anda dengan melakukan konsultasi interaktif atau langsung ambil kuis sertifikat!</p>
+          </div>
+          <div class="flex gap-2 shrink-0">
+            <button onclick="switchTab('chat')" class="bg-slate-200 text-slate-700 px-4 py-2 rounded-xl text-xs font-bold hover:bg-slate-300 transition-colors">
+              Konsultasi AI
+            </button>
+            <button onclick="switchTab('quiz')" class="bg-red-600 text-white px-4 py-2 rounded-xl text-xs font-bold hover:bg-red-700 transition-colors shadow-sm">
+              Mulai Ujian Kuis
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB: TANYA COACH AI ================= -->
+      <section id="tab-chat" class="tab-view hidden flex flex-col flex-grow space-y-4">
+        <div class="border-b border-slate-150 pb-4">
+          <h2 class="text-2xl font-black text-slate-900">Tanya Coach AI Hospitality</h2>
+          <p class="text-sm text-slate-500">Tanyakan skenario apa saja tentang pelayanan pelanggan pada AI Trainer Baba Rafi.</p>
+        </div>
+
+        <!-- Chat Container -->
+        <div id="chat-messages-container" class="flex-grow min-h-[300px] max-h-[450px] overflow-y-auto border border-slate-200 rounded-xl p-4 bg-slate-50/50 space-y-4">
+          <!-- Initial Welcome Message -->
+          <div class="flex items-start space-x-3">
+            <div class="w-8 h-8 rounded-full bg-red-600 text-white flex items-center justify-center shrink-0">
+              <i class="fa-solid fa-user-tie text-xs"></i>
+            </div>
+            <div class="bg-white border border-slate-150 p-3.5 rounded-r-xl rounded-bl-xl shadow-sm max-w-xl text-sm leading-relaxed">
+              <p class="font-bold text-red-600 mb-1">Coach Randy (Trainer Baba Rafi)</p>
+              Halo! Saya Randy, Coach Hospitality di Baba Rafi Academy. Silakan tanyakan masalah pelayanan Anda. Misalnya: 
+              <br><em class="text-slate-500">"Bagaimana bersikap ramah ketika outlet sedang sangat lelah di akhir shift?"</em> atau 
+              <em class="text-slate-500">"Bagaimana menolak permintaan pelanggan yang melanggar SOP outlet?"</em>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chat Input Form -->
+        <form id="chat-form" onsubmit="handleSendChat(event)" class="flex gap-2">
+          <input id="chat-input" type="text" placeholder="Ketik pertanyaan Anda tentang service excellence di sini..." class="flex-grow px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-red-500 transition-all" required>
+          <button id="btn-send-chat" type="submit" class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-xl font-bold text-sm shadow-md shadow-red-200 transition-all shrink-0 flex items-center space-x-1.5">
+            <i class="fa-solid fa-paper-plane"></i>
+            <span class="hidden sm:inline">Kirim</span>
+          </button>
+        </form>
+      </section>
+
+      <!-- ================= TAB: ROLEPLAY AI ================= -->
+      <section id="tab-roleplay" class="tab-view hidden space-y-6 flex-grow flex flex-col">
+        <div class="border-b border-slate-150 pb-4">
+          <h2 class="text-2xl font-black text-slate-900">Simulasi Roleplay Pelayanan</h2>
+          <p class="text-sm text-slate-500">Latih keterampilan merespons pelanggan dengan skenario dunia nyata.</p>
+        </div>
+
+        <!-- Scenario Selector -->
+        <div id="roleplay-intro" class="space-y-4">
+          <h3 class="font-bold text-slate-800 text-base">Pilih Skenario Kasus Roleplay:</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            
+            <div class="border border-slate-200 rounded-xl p-5 hover:border-red-400 bg-white hover:shadow-md transition-all cursor-pointer flex flex-col justify-between" onclick="startRoleplay('scen-1')">
+              <div>
+                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-2xs font-semibold bg-amber-100 text-amber-800 mb-3">Tingkat Kesulitan: Sedang</span>
+                <h4 class="font-bold text-slate-900 mb-2">Pelanggan Mengeluh Kebab Dingin</h4>
+                <p class="text-xs text-slate-500 leading-relaxed mb-4">Pelanggan memesan Kebab Turki besar bawa pulang, tapi setelah beberapa langkah, dia kembali dan mengeluh bagian tengahnya masih dingin sekali.</p>
+              </div>
+              <span class="text-xs font-bold text-red-600 flex items-center space-x-1">
+                <span>Mulai Skenario</span> <i class="fa-solid fa-arrow-right text-xs"></i>
+              </span>
+            </div>
+
+            <div class="border border-slate-200 rounded-xl p-5 hover:border-red-400 bg-white hover:shadow-md transition-all cursor-pointer flex flex-col justify-between" onclick="startRoleplay('scen-2')">
+              <div>
+                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-2xs font-semibold bg-red-100 text-red-800 mb-3">Tingkat Kesulitan: Sulit</span>
+                <h4 class="font-bold text-slate-900 mb-2">Salah Buat Pesanan (Antrean Padat)</h4>
+                <p class="text-xs text-slate-500 leading-relaxed mb-4">Pelanggan memesan Kebab non-pedas untuk anaknya, tapi Anda tidak sengaja memberi saus sambal ekstra pedas. Anak menangis dan ibu marah besar di depan antrean panjang.</p>
+              </div>
+              <span class="text-xs font-bold text-red-600 flex items-center space-x-1">
+                <span>Mulai Skenario</span> <i class="fa-solid fa-arrow-right text-xs"></i>
+              </span>
+            </div>
+
+            <div class="border border-slate-200 rounded-xl p-5 hover:border-red-400 bg-white hover:shadow-md transition-all cursor-pointer flex flex-col justify-between" onclick="startRoleplay('scen-3')">
+              <div>
+                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-2xs font-semibold bg-emerald-100 text-emerald-800 mb-3">Tingkat Kesulitan: Mudah</span>
+                <h4 class="font-bold text-slate-900 mb-2">Pelanggan Bingung & Upselling</h4>
+                <p class="text-xs text-slate-500 leading-relaxed mb-4">Seorang bapak-bapak pertama kali membeli di outlet Anda dan bingung memilih menu. Gunakan hospitality dan suggestive upselling yang tepat.</p>
+              </div>
+              <span class="text-xs font-bold text-red-600 flex items-center space-x-1">
+                <span>Mulai Skenario</span> <i class="fa-solid fa-arrow-right text-xs"></i>
+              </span>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Active Roleplay Simulation Interface -->
+        <div id="roleplay-arena" class="hidden flex-grow flex flex-col space-y-4">
+          <div class="bg-red-50 border border-red-200 rounded-xl p-4 flex items-center justify-between">
+            <div>
+              <span class="text-2xs font-bold text-red-700 uppercase tracking-widest block">Skenario Aktif</span>
+              <h4 id="roleplay-scenario-title" class="font-bold text-slate-900 text-sm">Pelanggan Mengeluh Kebab Dingin</h4>
+            </div>
+            <button onclick="exitRoleplay()" class="text-xs text-slate-500 hover:text-red-600 font-bold flex items-center space-x-1">
+              <i class="fa-solid fa-xmark"></i> <span>Ganti Kasus</span>
+            </button>
+          </div>
+
+          <!-- Chat Window -->
+          <div id="roleplay-messages" class="flex-grow min-h-[250px] max-h-[350px] overflow-y-auto border border-slate-200 rounded-xl p-4 bg-slate-50 space-y-4">
+            <!-- Dynamically populated -->
+          </div>
+
+          <!-- Roleplay input/actions -->
+          <div class="flex flex-col gap-2">
+            <form id="roleplay-form" onsubmit="handleSendRoleplay(event)" class="flex gap-2">
+              <input id="roleplay-input" type="text" placeholder="Ketik respons pelayanan Anda secara lengkap..." class="flex-grow px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" required>
+              <button id="btn-send-roleplay" type="submit" class="bg-red-600 hover:bg-red-700 text-white px-5 py-3 rounded-xl font-bold text-sm shadow-md transition-all flex items-center space-x-1.5 shrink-0">
+                <i class="fa-solid fa-reply"></i>
+                <span>Respons</span>
+              </button>
+            </form>
+            <div class="flex justify-between items-center mt-2">
+              <span class="text-xs text-slate-400"><i class="fa-solid fa-circle-info"></i> Responslah pelanggan di atas seolah Anda sedang melayani di depan gerobak kebab langsung!</span>
+              <button onclick="triggerRoleplayEvaluation()" class="bg-amber-500 hover:bg-amber-600 text-white font-bold px-4 py-2 rounded-xl text-xs flex items-center space-x-1.5 shadow-md shrink-0 transition-colors">
+                <i class="fa-solid fa-square-poll-vertical"></i>
+                <span>Selesai & Evaluasi</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Roleplay Evaluation Results Modal/View -->
+        <div id="roleplay-eval" class="hidden border border-amber-200 bg-amber-50/30 rounded-2xl p-6 space-y-4">
+          <div class="flex items-center space-x-3">
+            <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center text-2xl shadow-sm">
+              <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <div>
+              <h3 class="font-extrabold text-slate-900">Hasil Evaluasi Coach AI</h3>
+              <p class="text-xs text-slate-500">Berikut adalah analisis detail kecakapan hospitality Anda.</p>
+            </div>
+          </div>
+          <div id="roleplay-eval-content" class="bg-white border border-slate-200 p-5 rounded-xl text-sm leading-relaxed text-slate-700 space-y-3 shadow-inner">
+            <!-- Loaded by Gemini AI response -->
+            <div class="flex justify-center py-6">
+              <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-amber-600"></div>
+            </div>
+          </div>
+          <div class="flex justify-end gap-2">
+            <button onclick="exitRoleplay()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-4 py-2 rounded-xl text-xs transition-colors">
+              Coba Skenario Lain
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB: QUIZ & SERTIFIKAT ================= -->
+      <section id="tab-quiz" class="tab-view hidden space-y-6">
+        <div class="border-b border-slate-150 pb-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+          <div>
+            <h2 class="text-2xl font-black text-slate-900">Kuis Sertifikat Hospitality</h2>
+            <p class="text-sm text-slate-500">Jawab 5 pertanyaan analisis pelayanan. Raih nilai &ge; 80% untuk kelulusan.</p>
+          </div>
+          <div id="cert-unlocked-badge" class="hidden bg-emerald-100 text-emerald-800 border border-emerald-200 px-3 py-1 rounded-full text-xs font-bold flex items-center space-x-1.5 animate-bounce">
+            <i class="fa-solid fa-certificate"></i>
+            <span>Sertifikat Terbuka!</span>
+          </div>
+        </div>
+
+        <!-- Registration Step -->
+        <div id="quiz-register" class="max-w-md mx-auto py-10 text-center space-y-6">
+          <div class="w-20 h-20 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-4xl mx-auto shadow-md">
+            <i class="fa-solid fa-file-signature"></i>
+          </div>
+          <div class="space-y-2">
+            <h3 class="text-xl font-bold text-slate-900">Masukkan Nama Peserta</h3>
+            <p class="text-xs text-slate-500 leading-relaxed">Nama Anda akan tercantum secara permanen pada Sertifikat Kelulusan digital Baba Rafi Academy.</p>
+          </div>
+          <div class="space-y-3">
+            <input id="participant-name" type="text" placeholder="Masukkan nama lengkap Anda..." class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-red-500 text-center font-bold text-slate-800">
+            <button onclick="startQuiz()" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-xl text-sm shadow-md shadow-red-200 transition-all flex items-center justify-center space-x-2">
+              <span>Mulai Ujian Kuis</span>
+              <i class="fa-solid fa-chevron-right text-xs"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Quiz Progress View -->
+        <div id="quiz-playground" class="hidden space-y-6">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+            <span class="text-xs font-bold text-slate-400">Pertanyaan <span id="quiz-index-txt" class="text-red-600">1</span> dari 5</span>
+            <span id="quiz-timer" class="text-xs font-semibold bg-amber-100 text-amber-800 px-2.5 py-1 rounded-md flex items-center space-x-1">
+              <i class="fa-regular fa-clock"></i> <span id="quiz-timer-counter">00:00</span>
+            </span>
+          </div>
+
+          <!-- Question Prompt Card -->
+          <div class="bg-slate-50 border border-slate-150 rounded-2xl p-5 sm:p-6 shadow-inner">
+            <p id="quiz-question-text" class="font-bold text-slate-800 text-base leading-relaxed">Pertanyaan loading...</p>
+          </div>
+
+          <!-- Options Grid -->
+          <div id="quiz-options" class="grid grid-cols-1 gap-3">
+            <!-- Dynamically populated -->
+          </div>
+
+          <!-- Actions -->
+          <div class="flex justify-end pt-2">
+            <button id="btn-next-quiz" onclick="nextQuizQuestion()" class="bg-slate-300 text-slate-500 cursor-not-allowed font-bold px-6 py-3 rounded-xl text-sm shadow-sm transition-all flex items-center space-x-1" disabled>
+              <span>Lanjut</span>
+              <i class="fa-solid fa-arrow-right text-xs"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Quiz Result Screen -->
+        <div id="quiz-result" class="hidden max-w-lg mx-auto py-8 text-center space-y-6">
+          <div id="quiz-result-icon-container" class="w-24 h-24 rounded-full flex items-center justify-center text-5xl mx-auto shadow-md">
+            <!-- Populated on finish -->
+          </div>
+          <div class="space-y-2">
+            <h3 class="text-2xl font-black text-slate-900" id="quiz-result-title">Hasil Penilaian</h3>
+            <p class="text-sm text-slate-500 leading-relaxed" id="quiz-result-desc">Uraian hasil pengerjaan kuis Anda.</p>
+          </div>
+
+          <div class="bg-slate-50 rounded-xl p-6 border border-slate-200 grid grid-cols-2 gap-4 divide-x divide-slate-200">
+            <div>
+              <span class="text-2xs font-bold text-slate-400 uppercase tracking-wider block">Skor Akhir</span>
+              <span id="quiz-result-score" class="text-4xl font-extrabold text-slate-900">0</span>
+              <span class="text-xs text-slate-500 block mt-1">Sarat kelulusan &ge; 80</span>
+            </div>
+            <div>
+              <span class="text-2xs font-bold text-slate-400 uppercase tracking-wider block">Status Kelulusan</span>
+              <span id="quiz-result-status" class="text-lg font-black block mt-2 text-red-600">LULUS</span>
+              <span id="quiz-result-meta" class="text-2xs text-slate-400 block mt-1">Hasil dikirim ke database</span>
+            </div>
+          </div>
+
+          <div class="flex justify-center gap-3">
+            <button onclick="resetQuiz()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-5 py-3 rounded-xl text-xs transition-colors">
+              Ulangi Kuis
+            </button>
+            <button id="btn-open-cert" onclick="openCertificate()" class="hidden bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-5 py-3 rounded-xl text-xs transition-colors shadow-md flex items-center space-x-1.5">
+              <i class="fa-solid fa-certificate"></i>
+              <span>Cetak Sertifikat Kelulusan</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB: SETTINGS & LEADERBOARD ================= -->
+      <section id="tab-settings" class="tab-view hidden space-y-6">
+        <div class="border-b border-slate-150 pb-4">
+          <h2 class="text-2xl font-black text-slate-900">Pengaturan Integrasi Database</h2>
+          <p class="text-sm text-slate-500">Hubungkan portal belajar Anda dengan Google Sheets menggunakan Google Apps Script.</p>
+        </div>
+
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 space-y-4">
+          <h3 class="font-bold text-slate-800 text-sm flex items-center space-x-2">
+            <i class="fa-solid fa-link text-slate-500"></i>
+            <span>Tautan Google Apps Script</span>
+          </h3>
+          <p class="text-xs text-slate-500 leading-relaxed">
+            Tempelkan URL Web App yang Anda dapatkan saat melakukan deploy **Terapkan (Deploy)** kode `code.gs` di Google Apps Script Anda. 
+          </p>
+          <div class="flex gap-2">
+            <input id="settings-gas-url" type="url" placeholder="https://script.google.com/macros/s/.../exec" class="flex-grow px-4 py-2.5 text-xs rounded-lg border border-slate-200 focus:ring-2 focus:ring-red-500">
+            <button onclick="saveSettings()" class="bg-red-600 hover:bg-red-700 text-white font-bold px-4 py-2.5 rounded-lg text-xs transition-all flex items-center space-x-1 shadow-sm">
+              <i class="fa-solid fa-save"></i>
+              <span>Simpan</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <h3 class="font-bold text-slate-900 text-base flex items-center space-x-2">
+            <i class="fa-solid fa-chart-line text-red-600"></i>
+            <span>Aktivitas Hasil Ujian Terakhir</span>
+          </h3>
+          <div class="overflow-x-auto border border-slate-150 rounded-xl">
+            <table class="w-full text-left border-collapse text-xs">
+              <thead>
+                <tr class="bg-slate-50 text-slate-500 border-b border-slate-150">
+                  <th class="px-4 py-3 font-bold">Nama Peserta</th>
+                  <th class="px-4 py-3 font-bold text-center">Skor Akhir</th>
+                  <th class="px-4 py-3 font-bold text-center">Status Kelulusan</th>
+                </tr>
+              </thead>
+              <tbody id="leaderboard-rows" class="divide-y divide-slate-100 text-slate-600">
+                <!-- Loaded dynamically or shown as placeholder -->
+                <tr>
+                  <td colspan="3" class="px-4 py-6 text-center text-slate-400">Belum ada data aktivitas ujian masuk. Hubungkan database dan selesaikan ujian Anda.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-white border-t border-slate-200 py-6 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+      <p>&copy; 2026 Baba Rafi Academy. Seluruh Hak Cipta Dilindungi.</p>
+      <div class="flex space-x-4">
+        <span>Sistem Pelatihan Service Excellence & Hospitality</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CUSTOM MODAL DIALOGS (Replacement for Browser Alert) -->
+  <div id="custom-modal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-sm w-full border border-slate-200 p-6 space-y-4 shadow-2xl relative">
+      <div id="modal-icon-container" class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mx-auto"></div>
+      <div class="text-center space-y-1">
+        <h3 id="modal-title" class="font-extrabold text-slate-950 text-base">Peringatan</h3>
+        <p id="modal-desc" class="text-xs text-slate-500 leading-relaxed"></p>
+      </div>
+      <div class="flex justify-end gap-2 pt-2">
+        <button id="modal-btn-close" onclick="closeModal()" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-2.5 rounded-xl text-xs transition-colors">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIGITAL CERTIFICATE MODAL SCREEN -->
+  <div id="cert-modal-overlay" class="hidden fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md overflow-y-auto p-4 sm:p-8 flex items-center justify-center">
+    <div class="max-w-4xl w-full flex flex-col gap-4 no-print">
+      <div class="flex justify-between items-center text-white">
+        <h3 class="font-bold text-lg"><i class="fa-solid fa-award text-yellow-400 mr-2"></i> Sertifikat Digital Kelulusan</h3>
+        <div class="flex gap-2">
+          <button onclick="window.print()" class="bg-red-600 hover:bg-red-700 text-white text-xs font-bold px-4 py-2.5 rounded-lg flex items-center space-x-1.5 shadow-md">
+            <i class="fa-solid fa-print"></i> <span>Cetak Sertifikat (PDF)</span>
+          </button>
+          <button onclick="closeCertificate()" class="bg-white/10 hover:bg-white/20 text-white text-xs font-bold px-4 py-2.5 rounded-lg border border-white/20">
+            Tutup
+          </button>
+        </div>
+      </div>
+      
+      <!-- Premium Design Certificate Card -->
+      <div id="certificate-modal" class="bg-white border-8 border-amber-500 p-8 sm:p-12 relative text-center space-y-6 shadow-2xl rounded-sm overflow-hidden" style="min-height: 500px;">
+        <!-- Watermark / Background vectors -->
+        <div class="absolute inset-0 opacity-5 pointer-events-none flex items-center justify-center">
+          <i class="fa-solid fa-trophy text-[300px]"></i>
+        </div>
+        <div class="absolute -left-12 -top-12 w-24 h-24 bg-red-600 rotate-45"></div>
+        <div class="absolute -right-12 -top-12 w-24 h-24 bg-red-600 -rotate-45"></div>
+        <div class="absolute -left-12 -bottom-12 w-24 h-24 bg-red-600 -rotate-45"></div>
+        <div class="absolute -right-12 -bottom-12 w-24 h-24 bg-red-600 rotate-45"></div>
+
+        <div class="space-y-1">
+          <div class="w-14 h-14 bg-red-600 rounded-2xl flex items-center justify-center text-white font-extrabold text-2xl mx-auto shadow-md">
+            R
+          </div>
+          <p class="text-xs font-extrabold text-slate-400 uppercase tracking-widest pt-2">Sertifikat Kelulusan Resmi</p>
+          <p class="text-sm font-semibold text-slate-500">BABA RAFI ACADEMY HOSPITALITY PORTAL</p>
+        </div>
+
+        <div class="py-4">
+          <h2 class="text-3xl font-black text-slate-900 tracking-tight">SERTIFIKAT KELULUSAN</h2>
+          <div class="w-24 h-1 bg-amber-500 mx-auto my-3"></div>
+          <p class="text-xs text-slate-500 uppercase tracking-wider">Sertifikat ini dianugerahkan kepada:</p>
+          <h3 id="cert-user-name" class="text-2xl sm:text-3xl font-extrabold text-slate-950 py-2 border-b border-slate-100 max-w-lg mx-auto uppercase">Budi Santoso</h3>
+          <p class="text-xs text-slate-500 max-w-md mx-auto pt-4 leading-relaxed">
+            Karena telah menyelesaikan pelatihan komprehensif, menguasai standardisasi, dan lulus Ujian Evaluasi Kompetensi Teori & Kasus Lapangan
+          </p>
+          <p class="font-bold text-red-600 text-sm mt-3 uppercase tracking-wide">Service Excellence & Hospitality</p>
+        </div>
+
+        <div class="flex justify-between items-end pt-6 max-w-2xl mx-auto border-t border-slate-100">
+          <div class="text-left">
+            <span class="text-2xs text-slate-400 uppercase block">Tanggal Kelulusan</span>
+            <span id="cert-date" class="font-bold text-slate-700 text-xs">29 Juni 2026</span>
+          </div>
+          <div class="text-center">
+            <div class="inline-flex items-center px-2 py-1 bg-red-50 text-red-700 rounded border border-red-100 text-xs font-bold mb-1">
+              VERIFIED
+            </div>
+            <span class="text-2xs text-slate-400 uppercase block">Verifikasi Portal</span>
+          </div>
+          <div class="text-right">
+            <span class="text-2xs text-slate-400 uppercase block">Trainer Academy</span>
+            <span class="font-extrabold text-slate-900 text-xs block underline decoration-amber-500">Coach Randy</span>
+            <span class="text-2xs text-slate-400 block leading-none">Master Trainer</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================= JAVASCRIPT LOGIC ================= -->
+  <script>
+    // System Injected Gemini API Key Configuration
+    const apiKey = ""; 
+
+    // Global App States
+    let currentTab = 'home';
+    let quizProgress = 0;
+    let quizScore = 0;
+    let userName = '';
+    let quizSelectedAnswers = {};
+    let currentSelectedOption = null;
+    let activeRoleplayScenario = null;
+    let roleplayConversation = [];
+
+    // Detailed 10 Scenario-based Hospitality Questions (Mewakili 5 Pertanyaan untuk demo)
+    const quizQuestions = [
+      {
+        id: 1,
+        question: "Seorang pelanggan mengeluh bahwa bagian dalam kebabnya masih dingin sekali padahal luarannya sudah hangat. Sikap terbaik Anda sebagai crew outlet adalah...",
+        options: [
+          { key: "A", text: "Meminta maaf tulus, membuatkan kebab baru secara gratis secepatnya, dan membuang kebab yang dingin." },
+          { key: "B", text: "Mengatakan kepada pelanggan bahwa itu wajar karena daging baru dikeluarkan dari lemari pendingin." },
+          { key: "C", text: "Membantah pelanggan dan mengklaim Anda telah memanggangnya sesuai standar waktu SOP." },
+          { key: "D", text: "Meminta mereka mengantre ulang di belakang jika ingin kebab tersebut dipanaskan kembali." }
+        ],
+        correct: "A"
+      },
+      {
+        id: 2,
+        question: "Saat terjadi penumpukan antrean panjang di depan gerobak outlet Anda, tindakan paling ramah pertama yang harus dilakukan adalah...",
+        options: [
+          { key: "A", text: "Mengabaikan mereka dan fokus meracik kebab secara diam agar terlihat sibuk." },
+          { key: "B", text: "Tersenyum lebar, menyapa antrean, dan berkata: 'Mohon maaf menunggu sebentar ya kakak-kakak sekalian, segera kami layani!'." },
+          { key: "C", text: "Meminta pelanggan yang di belakang untuk datang esok hari saja agar antrean tidak macet." },
+          { key: "D", text: "Menyuruh pelanggan membubarkan diri jika tidak berniat sabar mengantre." }
+        ],
+        correct: "B"
+      },
+      {
+        id: 3,
+        question: "Manakah contoh suggestive upselling (penawaran nilai tambah) yang paling tepat saat pelanggan membeli Kebab Black Original?",
+        options: [
+          { key: "A", text: "'Mau tambah keju gak? Kalau gak mau ya gak apa-apa.'" },
+          { key: "B", text: "'Untuk Kebab Black-nya, mau dicoba tambahkan ekstra keju mozarella meleleh kak? Biar rasanya makin mantap dan gurih.'" },
+          { key: "C", text: "'Mending beli porsi double saja sekalian, biar omzet outlet kami naik hari ini.'" },
+          { key: "D", text: "'Kakak kelihatan lapar, mending beli 3 kebab sekaligus saja biar kenyang.'" }
+        ],
+        correct: "B"
+      },
+      {
+        id: 4,
+        question: "Dalam penanganan keluhan pelanggan (Metode LAST), apa arti dari huruf 'A' (Apologize)?",
+        options: [
+          { key: "A", text: "Menganalisis siapa crew yang bersalah dalam tim." },
+          { key: "B", text: "Meminta maaf secara tulus atas ketidaknyamanan tanpa bersikap defensif atau mencari alasan." },
+          { key: "C", text: "Mengabaikan kritik jika pelanggan terlihat terlalu emosional." },
+          { key: "D", text: "Menawarkan diskon langsung sebelum mendengarkan masalah intinya." }
+        ],
+        correct: "B"
+      },
+      {
+        id: 5,
+        question: "Mengapa kebersihan fisik area outlet (kaca bersih, tidak ada ceceran bahan, rapi) termasuk bagian dari hospitality?",
+        options: [
+          { key: "A", text: "Karena kebersihan mencerminkan rasa hormat kita terhadap kesehatan dan kenyamanan santap pelanggan." },
+          { key: "B", text: "Hanya untuk menghindari teguran dari atasan atau supervisor lapangan." },
+          { key: "C", text: "Agar bahan-bahan kebab tidak cepat habis karena tertata rapi." },
+          { key: "D", text: "Hanya sebagai taktik agar diperbolehkan beroperasi oleh pemerintah." }
+        ],
+        correct: "A"
+      }
+    ];
+
+    // Scenario definitions for Roleplay AI
+    const scenarios = {
+      'scen-1': {
+        title: "Pelanggan Mengeluh Kebab Dingin",
+        systemPrompt: "Anda berperan sebagai seorang Ibu paruh baya bernama Ibu Maria yang baru saja membeli kebab besar untuk anaknya, lalu kembali lagi ke outlet karena saat digigit anaknya, bagian tengah kebabnya masih dingin dan kaku seperti es. Anda sangat kesal karena merasa tidak higienis. Responslah jawaban asisten (outlet crew) dengan kritis, emosional namun realistis. Jika asisten meminta maaf dengan tulus, menjelaskan solusi ramah, dan menawarkan ganti baru, jadilah lebih tenang."
+      },
+      'scen-2': {
+        title: "Salah Buat Pesanan (Antrean Padat)",
+        systemPrompt: "Anda berperan sebagai Bapak Doni, bapak-bapak yang buru-buru membeli kebab tanpa pedas untuk anak balitanya. Di tengah antrean padat, outlet crew malah menuangkan saus pedas. Anak Anda menangis setelah gigitan pertama. Anda sangat marah di depan banyak pelanggan lain. Responslah asisten dengan kemarahan bapak-bapak yang protektif terhadap anak, tuntut penjelasan profesional."
+      },
+      'scen-3': {
+        title: "Pelanggan Bingung & Upselling",
+        systemPrompt: "Anda berperan sebagai Pak Bambang, seorang bapak paruh baya yang baru pertama kali mendekati outlet Kebab Turki Baba Rafi dan bingung melihat menu yang banyak. Anda tipe pelanggan yang lambat berpikir dan bimbang. Berbicaralah dengan gaya ramah namun bingung. Lihat apakah outlet crew menyapa dengan ramah (3S) dan merekomendasikan menu dengan sabar serta melakukan upselling secara sopan."
+      }
+    };
+
+    // Load URL Integrasi Sheets on startup
+    window.onload = function() {
+      const storedUrl = localStorage.getItem('babaRafi_gas_url');
+      if (storedUrl) {
+        document.getElementById('settings-gas-url').value = storedUrl;
+        testGasConnection(storedUrl);
+      }
+    }
+
+    // Navigation Tab Manager
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-view').forEach(view => {
+        view.classList.add('hidden');
+      });
+      document.querySelectorAll('.sidebar-btn').forEach(btn => {
+        btn.classList.remove('bg-red-600', 'text-white', 'shadow-md', 'shadow-red-100');
+        btn.classList.add('text-slate-600', 'hover:bg-slate-100', 'hover:text-slate-900');
+      });
+
+      document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+      document.getElementById(`btn-tab-${tabId}`).classList.add('bg-red-600', 'text-white', 'shadow-md', 'shadow-red-100');
+      document.getElementById(`btn-tab-${tabId}`).classList.remove('text-slate-600', 'hover:bg-slate-100', 'hover:text-slate-900');
+      currentTab = tabId;
+
+      if (tabId === 'settings') {
+        loadLeaderboard();
+      }
+    }
+
+    // Accordion Materi
+    function toggleAccordion(id) {
+      const body = document.getElementById(`body-${id}`);
+      const icon = document.getElementById(`icon-${id}`);
+      if (body.classList.contains('hidden')) {
+        body.classList.remove('hidden');
+        icon.classList.add('rotate-180');
+      } else {
+        body.classList.add('hidden');
+        icon.classList.remove('rotate-180');
+      }
+    }
+
+    // ================= INTEGRASI GOOGLE APPS SCRIPT =================
+    
+    // Test Koneksi
+    async function testGasConnection(url) {
+      const badge = document.getElementById('gas-status-badge');
+      try {
+        const response = await fetch(url, { method: 'GET' });
+        const resData = await response.json();
+        if (resData.status === 'success') {
+          badge.className = "inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200";
+          badge.innerHTML = `<span class="w-1.5 h-1.5 bg-emerald-500 rounded-full mr-1.5"></span> Database Aktif`;
+        }
+      } catch (e) {
+        badge.className = "inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-red-50 text-red-700 border border-red-200";
+        badge.innerHTML = `<span class="w-1.5 h-1.5 bg-red-500 rounded-full mr-1.5"></span> Koneksi Error`;
+      }
+    }
+
+    // Simpan Pengaturan
+    function saveSettings() {
+      const url = document.getElementById('settings-gas-url').value.trim();
+      localStorage.setItem('babaRafi_gas_url', url);
+      showCustomModal("success", "Pengaturan Disimpan", "Tautan integrasi database Google Sheets berhasil disimpan secara aman di browser!");
+      testGasConnection(url);
+    }
+
+    // Muat Leaderboard
+    async function loadLeaderboard() {
+      const container = document.getElementById('leaderboard-rows');
+      const url = localStorage.getItem('babaRafi_gas_url');
+      if (!url) return;
+
+      container.innerHTML = `
+        <tr>
+          <td colspan="3" class="px-4 py-6 text-center text-slate-400">
+            <div class="animate-spin rounded-full h-5 w-5 border-b-2 border-red-600 mx-auto"></div>
+          </td>
+        </tr>
+      `;
+
+      try {
+        const response = await fetch(url, { method: 'GET' });
+        const data = await response.json();
+        if (data.status === 'success' && data.leaderboard && data.leaderboard.length > 0) {
+          let html = '';
+          data.leaderboard.forEach(row => {
+            const isLulus = row.status.includes('LULUS');
+            const statusClass = isLulus ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800';
+            html += `
+              <tr class="hover:bg-slate-50 transition-colors">
+                <td class="px-4 py-3 font-medium text-slate-900">${row.nama}</td>
+                <td class="px-4 py-3 text-center font-bold text-slate-800">${row.skor}</td>
+                <td class="px-4 py-3 text-center">
+                  <span class="inline-flex items-center px-2 py-0.5 rounded-full text-3xs font-semibold ${statusClass}">${row.status}</span>
+                </td>
+              </tr>
+            `;
+          });
+          container.innerHTML = html;
+        } else {
+          container.innerHTML = `<tr><td colspan="3" class="px-4 py-6 text-center text-slate-400">Belum ada aktivitas terekam di Google Sheets Anda.</td></tr>`;
+        }
+      } catch (e) {
+        container.innerHTML = `<tr><td colspan="3" class="px-4 py-6 text-center text-red-500">Gagal memuat aktivitas database. Pastikan URL Apps Script benar.</td></tr>`;
+      }
+    }
+
+    // Kirim Data POST ke GAS dengan Content-Type Text/Plain (menghindari error preflight CORS browser)
+    async function sendDataToGAS(payload) {
+      const gasUrl = localStorage.getItem('babaRafi_gas_url');
+      if (!gasUrl) {
+        console.warn("URL GAS belum disetel. Data tidak disimpan ke Spreadsheet.");
+        return;
+      }
+      try {
+        await fetch(gasUrl, {
+          method: 'POST',
+          body: JSON.stringify(payload),
+          headers: {
+            'Content-Type': 'text/plain;charset=utf-8',
+          }
+        });
+        console.log("Data berhasil dikirim ke Google Sheets.");
+      } catch (error) {
+        console.error("Gagal mengirim data ke GAS:", error);
+      }
+    }
+
+    // ================= CUSTOM MODAL UTILITY =================
+    function showCustomModal(type, title, message) {
+      const modal = document.getElementById('custom-modal');
+      const iconBox = document.getElementById('modal-icon-container');
+      const titleBox = document.getElementById('modal-title');
+      const descBox = document.getElementById('modal-desc');
+
+      titleBox.innerText = title;
+      descBox.innerText = message;
+
+      if (type === "success") {
+        iconBox.className = "w-12 h-12 rounded-xl flex items-center justify-center text-2xl mx-auto bg-emerald-100 text-emerald-600";
+        iconBox.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+      } else if (type === "error") {
+        iconBox.className = "w-12 h-12 rounded-xl flex items-center justify-center text-2xl mx-auto bg-red-100 text-red-600";
+        iconBox.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i>';
+      } else {
+        iconBox.className = "w-12 h-12 rounded-xl flex items-center justify-center text-2xl mx-auto bg-amber-100 text-amber-600";
+        iconBox.innerHTML = '<i class="fa-solid fa-bell"></i>';
+      }
+
+      modal.classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('custom-modal').classList.add('hidden');
+    }
+
+    // ================= EXPONENTIAL BACKOFF GEMINI API HANDLER =================
+    async function callGemini(userQuery, systemPrompt) {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+      const payload = {
+        contents: [{ parts: [{ text: userQuery }] }],
+        systemInstruction: { parts: [{ text: systemPrompt }] }
+      };
+
+      let delay = 1000;
+      for (let i = 0; i < 5; i++) {
+        try {
+          const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          if (response.ok) {
+            const data = await response.json();
+            return data.candidates?.[0]?.content?.parts?.[0]?.text;
+          }
+        } catch (err) {
+          // Silent retry
+        }
+        await new Promise(resolve => setTimeout(resolve, delay));
+        delay *= 2;
+      }
+      throw new Error("Gagal terhubung dengan server AI Trainer. Silakan periksa koneksi internet Anda.");
+    }
+
+
+    // ================= CHAT COACH AI HANDLERS =================
+    async function handleSendChat(event) {
+      event.preventDefault();
+      const input = document.getElementById('chat-input');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const container = document.getElementById('chat-messages-container');
+      
+      // Tampilkan Pesan User
+      container.innerHTML += `
+        <div class="flex items-start space-x-3 justify-end">
+          <div class="bg-red-600 text-white p-3.5 rounded-l-xl rounded-br-xl shadow-sm max-w-xl text-sm leading-relaxed">
+            ${text}
+          </div>
+          <div class="w-8 h-8 rounded-full bg-slate-200 text-slate-700 flex items-center justify-center shrink-0 font-bold text-xs">
+            U
+          </div>
+        </div>
+      `;
+
+      input.value = '';
+      container.scrollTop = container.scrollHeight;
+
+      // Loader AI Berpikir
+      const loaderId = 'loader-' + Date.now();
+      container.innerHTML += `
+        <div id="${loaderId}" class="flex items-start space-x-3">
+          <div class="w-8 h-8 rounded-full bg-red-600 text-white flex items-center justify-center shrink-0">
+            <i class="fa-solid fa-user-tie text-xs"></i>
+          </div>
+          <div class="bg-white border border-slate-150 p-3 rounded-xl shadow-sm text-sm flex space-x-1.5 items-center">
+            <div class="w-2 h-2 bg-slate-400 rounded-full animate-bounce"></div>
+            <div class="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+            <div class="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
+          </div>
+        </div>
+      `;
+      container.scrollTop = container.scrollHeight;
+
+      // Panggil Gemini AI
+      try {
+        const systemPrompt = "Anda adalah Coach Randy, Master Trainer dari Baba Rafi Academy. Anda ahli dalam memberikan nasihat seputar Service Excellence, Hospitality, dan Standard Operating Procedure (SOP) di gerobak Kebab Turki Baba Rafi. Berikan jawaban yang praktis, ramah, dan aplikatif untuk outlet crew.";
+        const responseText = await callGemini(text, systemPrompt);
+        
+        document.getElementById(loaderId).remove();
+        
+        container.innerHTML += `
+          <div class="flex items-start space-x-3">
+            <div class="w-8 h-8 rounded-full bg-red-600 text-white flex items-center justify-center shrink-0">
+              <i class="fa-solid fa-user-tie text-xs"></i>
+            </div>
+            <div class="bg-white border border-slate-150 p-3.5 rounded-r-xl rounded-bl-xl shadow-sm max-w-xl text-sm leading-relaxed text-slate-700 markdown-body">
+              ${formatText(responseText)}
+            </div>
+          </div>
+        `;
+      } catch (error) {
+        document.getElementById(loaderId).remove();
+        showCustomModal("error", "Koneksi Bermasalah", "Maaf, Coach AI gagal merespons. " + error.message);
+      }
+      container.scrollTop = container.scrollHeight;
+    }
+
+    // ================= ROLEPLAY SIMULATION HANDLERS =================
+    function startRoleplay(scenarioId) {
+      activeRoleplayScenario = scenarioId;
+      roleplayConversation = [];
+      
+      document.getElementById('roleplay-intro').classList.add('hidden');
+      document.getElementById('roleplay-eval').classList.add('hidden');
+      document.getElementById('roleplay-arena').classList.remove('hidden');
+      
+      document.getElementById('roleplay-scenario-title').innerText = scenarios[scenarioId].title;
+      
+      const container = document.getElementById('roleplay-messages');
+      container.innerHTML = `
+        <div class="flex flex-col items-center justify-center h-full text-center space-y-2 opacity-50 my-8">
+          <i class="fa-solid fa-store text-4xl text-slate-400"></i>
+          <p class="text-xs text-slate-500 max-w-xs">Simulasi dimulai. Pelanggan mendekati gerobak outlet Anda. Silakan sapa atau hadapi pelanggan tersebut.</p>
+        </div>
+      `;
+    }
+
+    async function handleSendRoleplay(event) {
+      event.preventDefault();
+      const input = document.getElementById('roleplay-input');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const container = document.getElementById('roleplay-messages');
+      
+      // Hapus pesan placeholder jika ada
+      if (roleplayConversation.length === 0) {
+        container.innerHTML = '';
+      }
+
+      // Tambahkan pesan Crew (User) ke UI & Log
+      container.innerHTML += `
+        <div class="flex items-start space-x-3 justify-end">
+          <div class="bg-amber-100 border border-amber-200 text-amber-900 p-3.5 rounded-l-xl rounded-br-xl shadow-sm max-w-xl text-sm leading-relaxed">
+            <span class="block text-2xs font-bold text-amber-700 mb-1">Anda (Crew)</span>
+            ${text}
+          </div>
+          <div class="w-8 h-8 rounded-full bg-amber-500 text-white flex items-center justify-center shrink-0 font-bold text-xs">
+            C
+          </div>
+        </div>
+      `;
+      roleplayConversation.push({ role: 'crew', text: text });
+
+      input.value = '';
+      container.scrollTop = container.scrollHeight;
+
+      // Loader AI Berpikir
+      const loaderId = 'loader-rp-' + Date.now();
+      container.innerHTML += `
+        <div id="${loaderId}" class="flex items-start space-x-3 mt-4">
+          <div class="w-8 h-8 rounded-full bg-slate-700 text-white flex items-center justify-center shrink-0">
+            <i class="fa-solid fa-user text-xs"></i>
+          </div>
+          <div class="bg-white border border-slate-200 p-3 rounded-xl shadow-sm flex space-x-1.5 items-center">
+            <div class="w-2 h-2 bg-slate-400 rounded-full animate-bounce"></div>
+            <div class="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+            <div class="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
+          </div>
+        </div>
+      `;
+      container.scrollTop = container.scrollHeight;
+
+      // Panggil Gemini AI sebagai Pelanggan
+      try {
+        const scenario = scenarios[activeRoleplayScenario];
+        const chatHistory = roleplayConversation.map(msg => `${msg.role === 'crew' ? 'Crew' : 'Pelanggan'}: ${msg.text}`).join('\n');
+        const userQuery = `Berikut adalah percakapan sejauh ini:\n${chatHistory}\n\nBerikan respons Anda HANYA sebagai Pelanggan berdasarkan skenario.`;
+        
+        const responseText = await callGemini(userQuery, scenario.systemPrompt);
+        
+        document.getElementById(loaderId).remove();
+        
+        container.innerHTML += `
+          <div class="flex items-start space-x-3 mt-4">
+            <div class="w-8 h-8 rounded-full bg-slate-700 text-white flex items-center justify-center shrink-0">
+              <i class="fa-solid fa-user text-xs"></i>
+            </div>
+            <div class="bg-white border border-slate-200 p-3.5 rounded-r-xl rounded-bl-xl shadow-sm max-w-xl text-sm leading-relaxed text-slate-800">
+              <span class="block text-2xs font-bold text-slate-500 mb-1">Pelanggan</span>
+              ${formatText(responseText)}
+            </div>
+          </div>
+        `;
+        roleplayConversation.push({ role: 'pelanggan', text: responseText });
+      } catch (error) {
+        document.getElementById(loaderId).remove();
+        showCustomModal("error", "Koneksi Bermasalah", "Gagal merespons. " + error.message);
+      }
+      container.scrollTop = container.scrollHeight;
+    }
+
+    async function triggerRoleplayEvaluation() {
+      if (roleplayConversation.length < 2) {
+        showCustomModal("error", "Belum Cukup", "Selesaikan setidaknya beberapa percakapan interaksi dengan pelanggan sebelum meminta evaluasi.");
+        return;
+      }
+
+      document.getElementById('roleplay-arena').classList.add('hidden');
+      document.getElementById('roleplay-eval').classList.remove('hidden');
+      
+      const evalContainer = document.getElementById('roleplay-eval-content');
+      evalContainer.innerHTML = `
+        <div class="flex justify-center py-6">
+          <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-amber-600"></div>
+        </div>
+        <p class="text-center text-xs text-slate-500">Coach AI sedang menganalisis performa Anda...</p>
+      `;
+
+      try {
+        const chatHistory = roleplayConversation.map(msg => `${msg.role === 'crew' ? 'Crew' : 'Pelanggan'}: ${msg.text}`).join('\n');
+        const systemPrompt = "Anda adalah Evaluator/Coach Pelayanan. Analisis transkrip percakapan roleplay antara Crew dan Pelanggan. Berikan penilaian tajam tentang: 1. Apakah Crew menggunakan bahasa yang sopan? 2. Apakah masalah terselesaikan atau SOP terpenuhi? 3. Apa yang perlu diperbaiki? Format respons Anda dalam poin-poin singkat yang membangun (konstruktif).";
+        
+        const evaluationText = await callGemini(`Transkrip Interaksi:\n${chatHistory}`, systemPrompt);
+        
+        evalContainer.innerHTML = formatText(evaluationText);
+
+        // KASUS PENGGUNAAN INTEGRASI: Simpan Log Roleplay ke Spreadsheet
+        sendDataToGAS({
+          action: "save_roleplay",
+          scenarioId: activeRoleplayScenario,
+          scenarioTitle: scenarios[activeRoleplayScenario].title,
+          inputPeserta: JSON.stringify(roleplayConversation),
+          feedbackAi: evaluationText
+        });
+
+      } catch (error) {
+        evalContainer.innerHTML = `<p class="text-red-500 font-bold text-center">Gagal memuat evaluasi AI: ${error.message}</p>`;
+      }
+    }
+
+    function exitRoleplay() {
+      document.getElementById('roleplay-arena').classList.add('hidden');
+      document.getElementById('roleplay-eval').classList.add('hidden');
+      document.getElementById('roleplay-intro').classList.remove('hidden');
+      activeRoleplayScenario = null;
+    }
+
+    // ================= QUIZ & CERTIFICATE HANDLERS =================
+    function startQuiz() {
+      const nameInput = document.getElementById('participant-name').value.trim();
+      if (!nameInput) {
+        showCustomModal("error", "Nama Kosong", "Harap masukkan nama lengkap Anda untuk dicetak pada sertifikat.");
+        return;
+      }
+      userName = nameInput;
+      quizProgress = 0;
+      quizScore = 0;
+      quizSelectedAnswers = {};
+      
+      document.getElementById('quiz-register').classList.add('hidden');
+      document.getElementById('quiz-result').classList.add('hidden');
+      document.getElementById('quiz-playground').classList.remove('hidden');
+      
+      renderQuizQuestion();
+    }
+
+    function renderQuizQuestion() {
+      if (quizProgress >= quizQuestions.length) {
+        finishQuiz();
+        return;
+      }
+
+      const q = quizQuestions[quizProgress];
+      document.getElementById('quiz-index-txt').innerText = quizProgress + 1;
+      document.getElementById('quiz-question-text').innerText = q.question;
+      
+      const optionsContainer = document.getElementById('quiz-options');
+      optionsContainer.innerHTML = '';
+      currentSelectedOption = null;
+      updateNextButtonState();
+
+      q.options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = "text-left w-full p-4 rounded-xl border-2 border-slate-100 bg-white hover:border-red-300 hover:bg-red-50 transition-all font-medium text-slate-700 text-sm flex items-start space-x-3";
+        btn.innerHTML = `
+          <span class="w-6 h-6 rounded-md bg-slate-100 text-slate-500 font-bold flex items-center justify-center shrink-0 option-key">${opt.key}</span>
+          <span class="pt-0.5">${opt.text}</span>
+        `;
+        btn.onclick = () => selectQuizOption(opt.key, btn);
+        optionsContainer.appendChild(btn);
+      });
+    }
+
+    function selectQuizOption(key, btnElement) {
+      currentSelectedOption = key;
+      // Reset styles
+      const optionsContainer = document.getElementById('quiz-options');
+      Array.from(optionsContainer.children).forEach(child => {
+        child.classList.remove('border-red-500', 'bg-red-50');
+        child.classList.add('border-slate-100', 'bg-white');
+        child.querySelector('.option-key').classList.remove('bg-red-600', 'text-white');
+        child.querySelector('.option-key').classList.add('bg-slate-100', 'text-slate-500');
+      });
+      // Set active styles
+      btnElement.classList.remove('border-slate-100', 'bg-white');
+      btnElement.classList.add('border-red-500', 'bg-red-50');
+      btnElement.querySelector('.option-key').classList.remove('bg-slate-100', 'text-slate-500');
+      btnElement.querySelector('.option-key').classList.add('bg-red-600', 'text-white');
+      
+      updateNextButtonState();
+    }
+
+    function updateNextButtonState() {
+      const btnNext = document.getElementById('btn-next-quiz');
+      if (currentSelectedOption) {
+        btnNext.disabled = false;
+        btnNext.className = "bg-red-600 hover:bg-red-700 text-white font-bold px-6 py-3 rounded-xl text-sm shadow-md transition-all flex items-center space-x-1";
+      } else {
+        btnNext.disabled = true;
+        btnNext.className = "bg-slate-300 text-slate-500 cursor-not-allowed font-bold px-6 py-3 rounded-xl text-sm shadow-sm transition-all flex items-center space-x-1";
+      }
+    }
+
+    function nextQuizQuestion() {
+      if (!currentSelectedOption) return;
+      
+      const q = quizQuestions[quizProgress];
+      quizSelectedAnswers[`Q${q.id}`] = currentSelectedOption;
+      if (currentSelectedOption === q.correct) {
+        quizScore += 20; // 5 soal x 20 poin = 100
+      }
+
+      quizProgress++;
+      renderQuizQuestion();
+    }
+
+    function finishQuiz() {
+      document.getElementById('quiz-playground').classList.add('hidden');
+      document.getElementById('quiz-result').classList.remove('hidden');
+      
+      const isLulus = quizScore >= 80;
+      
+      document.getElementById('quiz-result-score').innerText = quizScore;
+      document.getElementById('quiz-result-status').innerText = isLulus ? 'LULUS (TERVERIFIKASI)' : 'TIDAK LULUS';
+      document.getElementById('quiz-result-status').className = isLulus ? 'text-lg font-black block mt-2 text-emerald-600' : 'text-lg font-black block mt-2 text-red-600';
+      
+      const iconContainer = document.getElementById('quiz-result-icon-container');
+      if (isLulus) {
+        iconContainer.className = "w-24 h-24 rounded-full flex items-center justify-center text-5xl mx-auto shadow-md bg-emerald-100 text-emerald-600";
+        iconContainer.innerHTML = '<i class="fa-solid fa-trophy"></i>';
+        document.getElementById('quiz-result-title').innerText = "Selamat, Anda Lulus!";
+        document.getElementById('quiz-result-desc').innerText = "Anda telah menguasai SOP Hospitality dasar Baba Rafi. Sertifikat kelulusan digital Anda telah terbuka.";
+        document.getElementById('btn-open-cert').classList.remove('hidden');
+        document.getElementById('cert-unlocked-badge').classList.remove('hidden');
+      } else {
+        iconContainer.className = "w-24 h-24 rounded-full flex items-center justify-center text-5xl mx-auto shadow-md bg-red-100 text-red-600";
+        iconContainer.innerHTML = '<i class="fa-solid fa-face-frown"></i>';
+        document.getElementById('quiz-result-title').innerText = "Maaf, Belum Lulus";
+        document.getElementById('quiz-result-desc').innerText = "Anda harus mencapai skor minimal 80 untuk mendapatkan sertifikat. Silakan pelajari ulang materi dan coba lagi.";
+        document.getElementById('btn-open-cert').classList.add('hidden');
+      }
+
+      // KASUS PENGGUNAAN INTEGRASI: Simpan Hasil Kuis ke Spreadsheet
+      sendDataToGAS({
+        action: "save_quiz",
+        nama: userName,
+        skor: quizScore,
+        jawabanDetail: quizSelectedAnswers
+      });
+    }
+
+    function resetQuiz() {
+      document.getElementById('quiz-result').classList.add('hidden');
+      document.getElementById('quiz-register').classList.remove('hidden');
+      document.getElementById('participant-name').value = '';
+      document.getElementById('btn-open-cert').classList.add('hidden');
+      document.getElementById('cert-unlocked-badge').classList.add('hidden');
+    }
+
+    // Certificate Modals
+    function openCertificate() {
+      const today = new Date();
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      document.getElementById('cert-date').innerText = today.toLocaleDateString('id-ID', options);
+      document.getElementById('cert-user-name').innerText = userName;
+      document.getElementById('cert-modal-overlay').classList.remove('hidden');
+    }
+
+    function closeCertificate() {
+      document.getElementById('cert-modal-overlay').classList.add('hidden');
+    }
+
+    // Basic Text Formatting for AI Response (Markdown-like to HTML)
+    function formatText(text) {
+      if (!text) return '';
+      let formatted = text
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.*?)\*/g, '<em>$1</em>')
+        .replace(/\n\n/g, '</p><p class="mt-2">')
+        .replace(/\n/g, '<br>');
+      return `<p>${formatted}</p>`;
+    }
+
+  </script>
+</body>
+</html>
