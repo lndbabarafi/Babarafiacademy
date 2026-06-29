@@ -469,7 +469,7 @@
 
           <!-- Actions -->
           <div class="flex justify-end pt-2">
-            <button id="btn-next-quiz" onclick="nextQuizQuestion()" class="bg-slate-300 text-slate-500 cursor-not-allowed font-bold px-6 py-3 rounded-xl text-sm shadow-sm transition-all flex items-center space-x-1" disabled>
+            <button id="btn-next-quiz" onclick="nextQuizQuestion()" class="bg-red-600 hover:bg-red-700 text-white font-bold px-6 py-3 rounded-xl text-sm shadow-md transition-all flex items-center space-x-1">
               <span>Lanjut</span>
               <i class="fa-solid fa-arrow-right text-xs"></i>
             </button>
@@ -665,11 +665,10 @@
     let quizScore = 0;
     let userName = '';
     let quizSelectedAnswers = {};
-    let currentSelectedOption = null;
     let activeRoleplayScenario = null;
     let roleplayConversation = [];
 
-    // Detailed 10 Scenario-based Hospitality Questions (Mewakili 5 Pertanyaan untuk demo)
+    // Detailed 10 Scenario-based Hospitality Questions
     const quizQuestions = [
       {
         id: 1,
@@ -732,7 +731,7 @@
     const scenarios = {
       'scen-1': {
         title: "Pelanggan Mengeluh Kebab Dingin",
-        systemPrompt: "Anda berperan sebagai seorang Ibu paruh baya bernama Ibu Maria yang baru saja membeli kebab besar untuk anaknya, lalu kembali lagi ke outlet karena saat digigit anaknya, bagian tengah kebabnya masih dingin dan kaku seperti es. Anda sangat kesal karena merasa tidak higienis. Responslah jawaban asisten (outlet crew) dengan kritis, emosional namun realistis. Jika asisten meminta maaf dengan tulus, menjelaskan solusi ramah, dan menawarkan ganti baru, jadilah lebih tenang."
+        systemPrompt: "Anda berperan sebagai seorang Ibu paruh baya bernama Ibu Maria yang baru saja membeli kebab besar untuk anaknya, lalu kembali lagi ke outlet karena saat digigit anaknya, bagian tengah kebabnya masih dingin dan kaku seperti es. Anda sangat kesal karena merasa tidak higienis. Responslah jawaban asisten (outlet crew) dengan kritis, emosional namun realistis. Evaluasi jika asisten meminta maaf dengan tulus, menjelaskan solusi ramah, dan menawarkan ganti baru."
       },
       'scen-2': {
         title: "Salah Buat Pesanan (Antrean Padat)",
@@ -746,7 +745,7 @@
 
     // Load URL Integrasi Sheets on startup
     window.onload = function() {
-      const storedUrl = localStorage.getItem('babaRafi_gas_url');
+      const storedUrl = "https://script.google.com/macros/s/AKfycbxsuFFspTQoMZJfUFWNuXx2_oXI2fplivmfixDtcitGABdT9t9RIHr7a9KUOagdqQs8gQ/exec";
       if (storedUrl) {
         document.getElementById('settings-gas-url').value = storedUrl;
         testGasConnection(storedUrl);
@@ -769,7 +768,7 @@
       currentTab = tabId;
 
       if (tabId === 'settings') {
-        loadLeaderboard();
+        loadLeaderboard"https://script.google.com/macros/s/AKfycbxsuFFspTQoMZJfUFWNuXx2_oXI2fplivmfixDtcitGABdT9t9RIHr7a9KUOagdqQs8gQ/exec";
       }
     }
 
@@ -786,9 +785,7 @@
       }
     }
 
-    // ================= INTEGRASI GOOGLE APPS SCRIPT =================
-    
-    // Test Koneksi
+    // Google Apps Script Connection Testers
     async function testGasConnection(url) {
       const badge = document.getElementById('gas-status-badge');
       try {
@@ -804,7 +801,7 @@
       }
     }
 
-    // Simpan Pengaturan
+    // Save Integrasi Settings
     function saveSettings() {
       const url = document.getElementById('settings-gas-url').value.trim();
       localStorage.setItem('babaRafi_gas_url', url);
@@ -812,7 +809,7 @@
       testGasConnection(url);
     }
 
-    // Muat Leaderboard
+    // Load Leaderboard from Apps Script
     async function loadLeaderboard() {
       const container = document.getElementById('leaderboard-rows');
       const url = localStorage.getItem('babaRafi_gas_url');
@@ -849,32 +846,11 @@
           container.innerHTML = `<tr><td colspan="3" class="px-4 py-6 text-center text-slate-400">Belum ada aktivitas terekam di Google Sheets Anda.</td></tr>`;
         }
       } catch (e) {
-        container.innerHTML = `<tr><td colspan="3" class="px-4 py-6 text-center text-red-500">Gagal memuat aktivitas database. Pastikan URL Apps Script benar.</td></tr>`;
+        container.innerHTML = `<tr><td colspan="3" class="px-4 py-6 text-center text-red-500">Gagal memuat aktivitas database. Pastikan deployment Apps Script Anda aktif.</td></tr>`;
       }
     }
 
-    // Kirim Data POST ke GAS dengan Content-Type Text/Plain (menghindari error preflight CORS browser)
-    async function sendDataToGAS(payload) {
-      const gasUrl = localStorage.getItem('babaRafi_gas_url');
-      if (!gasUrl) {
-        console.warn("URL GAS belum disetel. Data tidak disimpan ke Spreadsheet.");
-        return;
-      }
-      try {
-        await fetch(gasUrl, {
-          method: 'POST',
-          body: JSON.stringify(payload),
-          headers: {
-            'Content-Type': 'text/plain;charset=utf-8',
-          }
-        });
-        console.log("Data berhasil dikirim ke Google Sheets.");
-      } catch (error) {
-        console.error("Gagal mengirim data ke GAS:", error);
-      }
-    }
-
-    // ================= CUSTOM MODAL UTILITY =================
+    // Custom Modal Display Control
     function showCustomModal(type, title, message) {
       const modal = document.getElementById('custom-modal');
       const iconBox = document.getElementById('modal-icon-container');
@@ -902,7 +878,7 @@
       document.getElementById('custom-modal').classList.add('hidden');
     }
 
-    // ================= EXPONENTIAL BACKOFF GEMINI API HANDLER =================
+    // EXPONENTIAL BACKOFF GEMINI API HANDLER
     async function callGemini(userQuery, systemPrompt) {
       const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
       const payload = {
@@ -941,7 +917,7 @@
 
       const container = document.getElementById('chat-messages-container');
       
-      // Tampilkan Pesan User
+      // User Message bubble
       container.innerHTML += `
         <div class="flex items-start space-x-3 justify-end">
           <div class="bg-red-600 text-white p-3.5 rounded-l-xl rounded-br-xl shadow-sm max-w-xl text-sm leading-relaxed">
@@ -956,343 +932,14 @@
       input.value = '';
       container.scrollTop = container.scrollHeight;
 
-      // Loader AI Berpikir
+      // Typing Loader indicator
       const loaderId = 'loader-' + Date.now();
       container.innerHTML += `
         <div id="${loaderId}" class="flex items-start space-x-3">
           <div class="w-8 h-8 rounded-full bg-red-600 text-white flex items-center justify-center shrink-0">
             <i class="fa-solid fa-user-tie text-xs"></i>
           </div>
-          <div class="bg-white border border-slate-150 p-3 rounded-xl shadow-sm text-sm flex space-x-1.5 items-center">
-            <div class="w-2 h-2 bg-slate-400 rounded-full animate-bounce"></div>
-            <div class="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
-            <div class="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
-          </div>
-        </div>
-      `;
-      container.scrollTop = container.scrollHeight;
-
-      // Panggil Gemini AI
-      try {
-        const systemPrompt = "Anda adalah Coach Randy, Master Trainer dari Baba Rafi Academy. Anda ahli dalam memberikan nasihat seputar Service Excellence, Hospitality, dan Standard Operating Procedure (SOP) di gerobak Kebab Turki Baba Rafi. Berikan jawaban yang praktis, ramah, dan aplikatif untuk outlet crew.";
-        const responseText = await callGemini(text, systemPrompt);
-        
-        document.getElementById(loaderId).remove();
-        
-        container.innerHTML += `
-          <div class="flex items-start space-x-3">
-            <div class="w-8 h-8 rounded-full bg-red-600 text-white flex items-center justify-center shrink-0">
-              <i class="fa-solid fa-user-tie text-xs"></i>
-            </div>
-            <div class="bg-white border border-slate-150 p-3.5 rounded-r-xl rounded-bl-xl shadow-sm max-w-xl text-sm leading-relaxed text-slate-700 markdown-body">
-              ${formatText(responseText)}
-            </div>
-          </div>
-        `;
-      } catch (error) {
-        document.getElementById(loaderId).remove();
-        showCustomModal("error", "Koneksi Bermasalah", "Maaf, Coach AI gagal merespons. " + error.message);
-      }
-      container.scrollTop = container.scrollHeight;
-    }
-
-    // ================= ROLEPLAY SIMULATION HANDLERS =================
-    function startRoleplay(scenarioId) {
-      activeRoleplayScenario = scenarioId;
-      roleplayConversation = [];
-      
-      document.getElementById('roleplay-intro').classList.add('hidden');
-      document.getElementById('roleplay-eval').classList.add('hidden');
-      document.getElementById('roleplay-arena').classList.remove('hidden');
-      
-      document.getElementById('roleplay-scenario-title').innerText = scenarios[scenarioId].title;
-      
-      const container = document.getElementById('roleplay-messages');
-      container.innerHTML = `
-        <div class="flex flex-col items-center justify-center h-full text-center space-y-2 opacity-50 my-8">
-          <i class="fa-solid fa-store text-4xl text-slate-400"></i>
-          <p class="text-xs text-slate-500 max-w-xs">Simulasi dimulai. Pelanggan mendekati gerobak outlet Anda. Silakan sapa atau hadapi pelanggan tersebut.</p>
-        </div>
-      `;
-    }
-
-    async function handleSendRoleplay(event) {
-      event.preventDefault();
-      const input = document.getElementById('roleplay-input');
-      const text = input.value.trim();
-      if (!text) return;
-
-      const container = document.getElementById('roleplay-messages');
-      
-      // Hapus pesan placeholder jika ada
-      if (roleplayConversation.length === 0) {
-        container.innerHTML = '';
-      }
-
-      // Tambahkan pesan Crew (User) ke UI & Log
-      container.innerHTML += `
-        <div class="flex items-start space-x-3 justify-end">
-          <div class="bg-amber-100 border border-amber-200 text-amber-900 p-3.5 rounded-l-xl rounded-br-xl shadow-sm max-w-xl text-sm leading-relaxed">
-            <span class="block text-2xs font-bold text-amber-700 mb-1">Anda (Crew)</span>
-            ${text}
-          </div>
-          <div class="w-8 h-8 rounded-full bg-amber-500 text-white flex items-center justify-center shrink-0 font-bold text-xs">
-            C
-          </div>
-        </div>
-      `;
-      roleplayConversation.push({ role: 'crew', text: text });
-
-      input.value = '';
-      container.scrollTop = container.scrollHeight;
-
-      // Loader AI Berpikir
-      const loaderId = 'loader-rp-' + Date.now();
-      container.innerHTML += `
-        <div id="${loaderId}" class="flex items-start space-x-3 mt-4">
-          <div class="w-8 h-8 rounded-full bg-slate-700 text-white flex items-center justify-center shrink-0">
-            <i class="fa-solid fa-user text-xs"></i>
-          </div>
-          <div class="bg-white border border-slate-200 p-3 rounded-xl shadow-sm flex space-x-1.5 items-center">
-            <div class="w-2 h-2 bg-slate-400 rounded-full animate-bounce"></div>
-            <div class="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
-            <div class="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
-          </div>
-        </div>
-      `;
-      container.scrollTop = container.scrollHeight;
-
-      // Panggil Gemini AI sebagai Pelanggan
-      try {
-        const scenario = scenarios[activeRoleplayScenario];
-        const chatHistory = roleplayConversation.map(msg => `${msg.role === 'crew' ? 'Crew' : 'Pelanggan'}: ${msg.text}`).join('\n');
-        const userQuery = `Berikut adalah percakapan sejauh ini:\n${chatHistory}\n\nBerikan respons Anda HANYA sebagai Pelanggan berdasarkan skenario.`;
-        
-        const responseText = await callGemini(userQuery, scenario.systemPrompt);
-        
-        document.getElementById(loaderId).remove();
-        
-        container.innerHTML += `
-          <div class="flex items-start space-x-3 mt-4">
-            <div class="w-8 h-8 rounded-full bg-slate-700 text-white flex items-center justify-center shrink-0">
-              <i class="fa-solid fa-user text-xs"></i>
-            </div>
-            <div class="bg-white border border-slate-200 p-3.5 rounded-r-xl rounded-bl-xl shadow-sm max-w-xl text-sm leading-relaxed text-slate-800">
-              <span class="block text-2xs font-bold text-slate-500 mb-1">Pelanggan</span>
-              ${formatText(responseText)}
-            </div>
-          </div>
-        `;
-        roleplayConversation.push({ role: 'pelanggan', text: responseText });
-      } catch (error) {
-        document.getElementById(loaderId).remove();
-        showCustomModal("error", "Koneksi Bermasalah", "Gagal merespons. " + error.message);
-      }
-      container.scrollTop = container.scrollHeight;
-    }
-
-    async function triggerRoleplayEvaluation() {
-      if (roleplayConversation.length < 2) {
-        showCustomModal("error", "Belum Cukup", "Selesaikan setidaknya beberapa percakapan interaksi dengan pelanggan sebelum meminta evaluasi.");
-        return;
-      }
-
-      document.getElementById('roleplay-arena').classList.add('hidden');
-      document.getElementById('roleplay-eval').classList.remove('hidden');
-      
-      const evalContainer = document.getElementById('roleplay-eval-content');
-      evalContainer.innerHTML = `
-        <div class="flex justify-center py-6">
-          <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-amber-600"></div>
-        </div>
-        <p class="text-center text-xs text-slate-500">Coach AI sedang menganalisis performa Anda...</p>
-      `;
-
-      try {
-        const chatHistory = roleplayConversation.map(msg => `${msg.role === 'crew' ? 'Crew' : 'Pelanggan'}: ${msg.text}`).join('\n');
-        const systemPrompt = "Anda adalah Evaluator/Coach Pelayanan. Analisis transkrip percakapan roleplay antara Crew dan Pelanggan. Berikan penilaian tajam tentang: 1. Apakah Crew menggunakan bahasa yang sopan? 2. Apakah masalah terselesaikan atau SOP terpenuhi? 3. Apa yang perlu diperbaiki? Format respons Anda dalam poin-poin singkat yang membangun (konstruktif).";
-        
-        const evaluationText = await callGemini(`Transkrip Interaksi:\n${chatHistory}`, systemPrompt);
-        
-        evalContainer.innerHTML = formatText(evaluationText);
-
-        // KASUS PENGGUNAAN INTEGRASI: Simpan Log Roleplay ke Spreadsheet
-        sendDataToGAS({
-          action: "save_roleplay",
-          scenarioId: activeRoleplayScenario,
-          scenarioTitle: scenarios[activeRoleplayScenario].title,
-          inputPeserta: JSON.stringify(roleplayConversation),
-          feedbackAi: evaluationText
-        });
-
-      } catch (error) {
-        evalContainer.innerHTML = `<p class="text-red-500 font-bold text-center">Gagal memuat evaluasi AI: ${error.message}</p>`;
-      }
-    }
-
-    function exitRoleplay() {
-      document.getElementById('roleplay-arena').classList.add('hidden');
-      document.getElementById('roleplay-eval').classList.add('hidden');
-      document.getElementById('roleplay-intro').classList.remove('hidden');
-      activeRoleplayScenario = null;
-    }
-
-    // ================= QUIZ & CERTIFICATE HANDLERS =================
-    function startQuiz() {
-      const nameInput = document.getElementById('participant-name').value.trim();
-      if (!nameInput) {
-        showCustomModal("error", "Nama Kosong", "Harap masukkan nama lengkap Anda untuk dicetak pada sertifikat.");
-        return;
-      }
-      userName = nameInput;
-      quizProgress = 0;
-      quizScore = 0;
-      quizSelectedAnswers = {};
-      
-      document.getElementById('quiz-register').classList.add('hidden');
-      document.getElementById('quiz-result').classList.add('hidden');
-      document.getElementById('quiz-playground').classList.remove('hidden');
-      
-      renderQuizQuestion();
-    }
-
-    function renderQuizQuestion() {
-      if (quizProgress >= quizQuestions.length) {
-        finishQuiz();
-        return;
-      }
-
-      const q = quizQuestions[quizProgress];
-      document.getElementById('quiz-index-txt').innerText = quizProgress + 1;
-      document.getElementById('quiz-question-text').innerText = q.question;
-      
-      const optionsContainer = document.getElementById('quiz-options');
-      optionsContainer.innerHTML = '';
-      currentSelectedOption = null;
-      updateNextButtonState();
-
-      q.options.forEach(opt => {
-        const btn = document.createElement('button');
-        btn.className = "text-left w-full p-4 rounded-xl border-2 border-slate-100 bg-white hover:border-red-300 hover:bg-red-50 transition-all font-medium text-slate-700 text-sm flex items-start space-x-3";
-        btn.innerHTML = `
-          <span class="w-6 h-6 rounded-md bg-slate-100 text-slate-500 font-bold flex items-center justify-center shrink-0 option-key">${opt.key}</span>
-          <span class="pt-0.5">${opt.text}</span>
-        `;
-        btn.onclick = () => selectQuizOption(opt.key, btn);
-        optionsContainer.appendChild(btn);
-      });
-    }
-
-    function selectQuizOption(key, btnElement) {
-      currentSelectedOption = key;
-      // Reset styles
-      const optionsContainer = document.getElementById('quiz-options');
-      Array.from(optionsContainer.children).forEach(child => {
-        child.classList.remove('border-red-500', 'bg-red-50');
-        child.classList.add('border-slate-100', 'bg-white');
-        child.querySelector('.option-key').classList.remove('bg-red-600', 'text-white');
-        child.querySelector('.option-key').classList.add('bg-slate-100', 'text-slate-500');
-      });
-      // Set active styles
-      btnElement.classList.remove('border-slate-100', 'bg-white');
-      btnElement.classList.add('border-red-500', 'bg-red-50');
-      btnElement.querySelector('.option-key').classList.remove('bg-slate-100', 'text-slate-500');
-      btnElement.querySelector('.option-key').classList.add('bg-red-600', 'text-white');
-      
-      updateNextButtonState();
-    }
-
-    function updateNextButtonState() {
-      const btnNext = document.getElementById('btn-next-quiz');
-      if (currentSelectedOption) {
-        btnNext.disabled = false;
-        btnNext.className = "bg-red-600 hover:bg-red-700 text-white font-bold px-6 py-3 rounded-xl text-sm shadow-md transition-all flex items-center space-x-1";
-      } else {
-        btnNext.disabled = true;
-        btnNext.className = "bg-slate-300 text-slate-500 cursor-not-allowed font-bold px-6 py-3 rounded-xl text-sm shadow-sm transition-all flex items-center space-x-1";
-      }
-    }
-
-    function nextQuizQuestion() {
-      if (!currentSelectedOption) return;
-      
-      const q = quizQuestions[quizProgress];
-      quizSelectedAnswers[`Q${q.id}`] = currentSelectedOption;
-      if (currentSelectedOption === q.correct) {
-        quizScore += 20; // 5 soal x 20 poin = 100
-      }
-
-      quizProgress++;
-      renderQuizQuestion();
-    }
-
-    function finishQuiz() {
-      document.getElementById('quiz-playground').classList.add('hidden');
-      document.getElementById('quiz-result').classList.remove('hidden');
-      
-      const isLulus = quizScore >= 80;
-      
-      document.getElementById('quiz-result-score').innerText = quizScore;
-      document.getElementById('quiz-result-status').innerText = isLulus ? 'LULUS (TERVERIFIKASI)' : 'TIDAK LULUS';
-      document.getElementById('quiz-result-status').className = isLulus ? 'text-lg font-black block mt-2 text-emerald-600' : 'text-lg font-black block mt-2 text-red-600';
-      
-      const iconContainer = document.getElementById('quiz-result-icon-container');
-      if (isLulus) {
-        iconContainer.className = "w-24 h-24 rounded-full flex items-center justify-center text-5xl mx-auto shadow-md bg-emerald-100 text-emerald-600";
-        iconContainer.innerHTML = '<i class="fa-solid fa-trophy"></i>';
-        document.getElementById('quiz-result-title').innerText = "Selamat, Anda Lulus!";
-        document.getElementById('quiz-result-desc').innerText = "Anda telah menguasai SOP Hospitality dasar Baba Rafi. Sertifikat kelulusan digital Anda telah terbuka.";
-        document.getElementById('btn-open-cert').classList.remove('hidden');
-        document.getElementById('cert-unlocked-badge').classList.remove('hidden');
-      } else {
-        iconContainer.className = "w-24 h-24 rounded-full flex items-center justify-center text-5xl mx-auto shadow-md bg-red-100 text-red-600";
-        iconContainer.innerHTML = '<i class="fa-solid fa-face-frown"></i>';
-        document.getElementById('quiz-result-title').innerText = "Maaf, Belum Lulus";
-        document.getElementById('quiz-result-desc').innerText = "Anda harus mencapai skor minimal 80 untuk mendapatkan sertifikat. Silakan pelajari ulang materi dan coba lagi.";
-        document.getElementById('btn-open-cert').classList.add('hidden');
-      }
-
-      // KASUS PENGGUNAAN INTEGRASI: Simpan Hasil Kuis ke Spreadsheet
-      sendDataToGAS({
-        action: "save_quiz",
-        nama: userName,
-        skor: quizScore,
-        jawabanDetail: quizSelectedAnswers
-      });
-    }
-
-    function resetQuiz() {
-      document.getElementById('quiz-result').classList.add('hidden');
-      document.getElementById('quiz-register').classList.remove('hidden');
-      document.getElementById('participant-name').value = '';
-      document.getElementById('btn-open-cert').classList.add('hidden');
-      document.getElementById('cert-unlocked-badge').classList.add('hidden');
-    }
-
-    // Certificate Modals
-    function openCertificate() {
-      const today = new Date();
-      const options = { year: 'numeric', month: 'long', day: 'numeric' };
-      document.getElementById('cert-date').innerText = today.toLocaleDateString('id-ID', options);
-      document.getElementById('cert-user-name').innerText = userName;
-      document.getElementById('cert-modal-overlay').classList.remove('hidden');
-    }
-
-    function closeCertificate() {
-      document.getElementById('cert-modal-overlay').classList.add('hidden');
-    }
-
-    // Basic Text Formatting for AI Response (Markdown-like to HTML)
-    function formatText(text) {
-      if (!text) return '';
-      let formatted = text
-        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-        .replace(/\*(.*?)\*/g, '<em>$1</em>')
-        .replace(/\n\n/g, '</p><p class="mt-2">')
-        .replace(/\n/g, '<br>');
-      return `<p>${formatted}</p>`;
-    }
-
-  </script>
-</body>
-</html>
+          <div class="bg-white border border-slate-150 p-3 rounded-xl shadow-sm text-sm">
+            <div class="flex space-x-1.5 items-center py-1">
+              <div class="w-2 h-2 bg-slate-400 rounded-full animate-bounce"></div>
+              <div class="w-2 h-2 bg-slate-400 rounded-full animate-bounce [animation-delay:0.2s]"></div>
